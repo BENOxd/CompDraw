@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "compdraw",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "inline": true,
+        "entry": "splash.html"
+      },
+      "game": {
+        "entry": "game.html"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create daily challenge post",
+        "description": "Create a new Daily Draw Challenge post with today's prompt",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-create"
+      },
+      {
+        "label": "Set prompt override",
+        "description": "Override today's drawing prompt (mod only)",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/prompt-override"
+      }
+    ]
+  },
+  "forms": {
+    "exampleForm": "/internal/form/example-submit",
+    "promptOverride": "/internal/form/prompt-override"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-rollover": {
+        "endpoint": "/internal/scheduler/daily-rollover",
+        "cron": "1 0 * * *"
+      }
+    }
+  },
+  "permissions": {
+    "redis": true
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "dev": {
+    "subreddit": "compdraw_dev"
+  }
+}
